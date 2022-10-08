@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
+import Table from './components/Table/Table';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { useEffect, useState } from 'react';
+
+// <----customize theme---->
+const theme = createTheme({
+  typography: {
+    fontFamily: "Comic Sans MS"
+  },
+});
 
 function App() {
+  const [findData, setFindData] = useState("");
+  const [data, setData] = useState([]);
+
+  useEffect(()=>{
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => res.json())
+    .then(data => setData(data));
+  }, []);
+
+  const search = (data)=> {
+    return data.filter((item) => item.name.toLowerCase().includes(findData));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme = {theme}>
+     
+      <Box component="form"
+       style={{marginLeft:"220px",marginTop:'30px'}}
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch', },
+          }}
+          noValidate
+          autoComplete="off">
+            
+         <TextField id="outlined-search" label="Search Name or Email" type="search"
+        
+         onKeyUp={(e) => setFindData(e.target.value)} />
+      </Box>
+      <Table data={search(data)}/>
+    </ThemeProvider>
   );
 }
 
