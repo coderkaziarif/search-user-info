@@ -9,10 +9,8 @@ const Table = ({data}) => {
     
    return (
       <Grid container>
-         <Grid item xs={6} md={8} style={{textAlign:"center",marginTop:'25px'}}>
-            
-            <div>
-               <center>
+         <Grid item xs={6} md={8} style={{marginTop:'25px'}}>
+            <center>
                <table>
                   <tbody>
                      <tr>
@@ -34,8 +32,7 @@ const Table = ({data}) => {
                          ))};
                   </tbody>
                </table> 
-               </center>         
-            </div>
+            </center>         
          </Grid>
       </Grid>
    );

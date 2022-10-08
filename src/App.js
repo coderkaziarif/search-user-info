@@ -4,6 +4,7 @@ import Table from './components/Table/Table';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
 
 // <----customize theme---->
 const theme = createTheme({
@@ -23,7 +24,11 @@ function App() {
   }, []);
 
   const search = (data)=> {
-    return data.filter((item) => item.name.toLowerCase().includes(findData));
+    return data.filter(
+      (item) => 
+      item.name.toLowerCase().includes(findData) ||
+      item.email.toLowerCase().includes(findData) 
+      );
   };
 
   return (
@@ -36,8 +41,8 @@ function App() {
           }}
           noValidate
           autoComplete="off">
-            
-         <TextField id="outlined-search" label="Search Name or Email" type="search"
+          <SearchIcon id="SearchIcon"/>
+         <TextField id="outlined-search" label="Search Name or Email..." type="search"
         
          onKeyUp={(e) => setFindData(e.target.value)} />
       </Box>
